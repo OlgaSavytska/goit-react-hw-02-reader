@@ -6,41 +6,40 @@ import Counter from '../Counter/Counter';
 import Controls from '../Controls/Controls';
 import styled4 from './Reader.module.css';
 
+const type = {
+  TRUE: true,
+  FALSE: false,
+};
+
 class Reader extends Component {
   constructor(props, items) {
     super(props, items);
 
     this.state = {
-      publication: this.props.items[0],
       total: this.props.items.length,
       values: 1,
-      butPrev: true,
-      butNext: false,
     };
   }
 
   handlPrevArticle = () => {
     this.setState(prevState => ({
-      publication: this.props.items[prevState.values - 1],
       values: prevState.values - 1,
-      butPrev: prevState.values === 1 && !prevState.butPrev,
-      butNext:
-        prevState.values === this.props.items.length && !prevState.butNext,
     }));
   };
 
   handlNextArticle = () => {
     this.setState(prevState => ({
-      publication: this.props.items[prevState.values + 1],
       values: prevState.values + 1,
-      butPrev: prevState.values === 1 && !prevState.butPrev,
-      butNext:
-        prevState.values === this.props.items.length - 1 && !prevState.butNext,
     }));
   };
 
   render() {
-    const { publication, total, values, butPrev, butNext } = this.state;
+    const { total, values } = this.state;
+    const { items } = this.props;
+    const publication = items[values - 1];
+
+    const butNext = values === total ? type.TRUE : type.FALSE;
+    const butPrev = values === 1 ? type.TRUE : type.FALSE;
 
     return (
       <div className={styled4.reader}>

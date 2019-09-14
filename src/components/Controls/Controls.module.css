@@ -25,7 +25,7 @@
   cursor: pointer;
 }
 
-.obj {
+.disabled {
 
   pointer-events: none;
   background-color: #bdbdbd;
